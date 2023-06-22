@@ -1,3 +1,5 @@
+//go:build ignore
+
 package main
 
 import (
@@ -6,7 +8,7 @@ import (
 	"net/http"
 )
 
-func run() {
+func main() {
 	helloHandler := func(
 		w http.ResponseWriter,
 		req *http.Request) {

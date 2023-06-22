@@ -1,3 +1,5 @@
+//go:build ignore
+
 package main
 
 // from https://github.com/Soypete/golang-cli-game/blob/main/server/api_test.go
