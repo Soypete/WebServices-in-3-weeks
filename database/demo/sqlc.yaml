@@ -1,0 +1,9 @@
+version: "2"
+sql:
+  - engine: "postgresql"
+    queries: "queries/user.sql"
+    schema: "migrations/0001_game_create.sql"
+    gen:
+      go:
+        package: "database"
+        out: "database"

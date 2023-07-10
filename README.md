@@ -19,7 +19,8 @@ This repo contains the examples and exercises for The O'reilly online learning c
 # Databases for webservices
 
 ## TODO: 
-* Exercise 1: Connect to hosted db with dumby data
+* Exercise 1: Connect to a live database
+* live coding: sqlc
 * Exercise 2: Add client and interface
 * Exercise 3: Unit tests with mock client
 * Example: integration testing with github actions
