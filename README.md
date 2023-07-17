@@ -1,8 +1,7 @@
 # Golang Webservices in 3 weeks
 This repo contains the examples and exercises for The O'reilly online learning course[Go Web Development in 3 weeks](https://www.oreilly.com/live-events/go-for-web-development-in-3-weeks/0636920091015/).
 
-[![Actions Status](https://github.com/soypete/{}/workflows/build/badge.svg)](https://github.com/soypete/{}/actions/workflows/go.yml)
-
+[![wakatime](https://wakatime.com/badge/user/953eeb5a-d347-44af-9d8b-a5b8a918cecf/project/815add1c-01f3-412e-b6cd-730805338e0e.svg)](https://wakatime.com/badge/user/953eeb5a-d347-44af-9d8b-a5b8a918cecf/project/815add1c-01f3-412e-b6cd-730805338e0e)
 ---
 
 # Rest API protocols
