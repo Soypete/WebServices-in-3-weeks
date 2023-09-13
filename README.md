@@ -30,7 +30,7 @@ If you are new to go, work through these exercises first
 # Day 2 - Databases for webservices
 
 * [Exercise 1](database/README.md): Connect to a live database
-* [live coding](database/demo/): sqlc
+* [live coding](database/demo/): [SQLC](https://sqlc.dev/) and [goose](https://github.com/pressly/goose)
 * [Exercise 2](database/README.md): Add client and interface
 * [Exercise 3](database/README.md): Unit tests with mock client
 * [SQL quiz](sql-quiz)
