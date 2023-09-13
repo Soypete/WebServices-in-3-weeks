@@ -37,3 +37,9 @@ Here are some examples of tests for the above opensource frameworks.
 - [Chi tests](https://go-chi.io/#/pages/testing)
 - [Gin tests](https://gin-gonic.com/docs/testing/)
 - [Fiber tests](https://docs.gofiber.io/api/app#test)
+
+## Helpful links:
+
+WE will be using `curl` to test the functionality of our endpoints and servers. If you have are unfamiliar with `curl` syntax check out these resources:
+- [Free code camp](https://www.freecodecamp.org/news/how-to-start-using-curl-and-why-a-hands-on-introduction-ea1c913caaaa/) 
+- [Curl docs](https://curl.se/docs/manual.html)
