@@ -4,40 +4,42 @@ This repo contains the examples and exercises for The O'reilly online learning c
 [![wakatime](https://wakatime.com/badge/user/953eeb5a-d347-44af-9d8b-a5b8a918cecf/project/815add1c-01f3-412e-b6cd-730805338e0e.svg)](https://wakatime.com/badge/user/953eeb5a-d347-44af-9d8b-a5b8a918cecf/project/815add1c-01f3-412e-b6cd-730805338e0e)
 ---
 
-# Rest API protocols
+In this course, you will learn all the steps to build a web service in [Go](https://go.dev/). From starting the service to monitoring your service, it is meant to give you a comprehensive guide for building production-level service. The first section of the course will handle building restful best practices in Go. Communication is key for designing and building your services and is the foundation on which your functionality will be built. The second section is all about databases. Each web service needs a layer to store, fetch, and manipulate the data communicated with it. We need to make sure our data foundations are strong so we maintain the state of our services. The last section is an overview of reliability. This section just goes over reliability basics, but they are vital things that every engineer should include when building a web service. This course does not go over [Go](https://go.dev/) basics. 
 
-## TODO:
-* ~Exercise 1: std lib listenAndServe~
-* Quiz: Status Codes
-* ~Exercise 2: MiddleWare server~
-* Exercise 3: Client to query hosted server 
-    - hosted
-    - local with docker
-* ~Exercise 4: HttpTests~
+## pre-requisites
+- [Go](https://go.dev/) installed and running
+- Working knowledge of go
+
+## New to go?
+
+If you are new to go, work through these exercises first
+- [Golang Zero to Hero](https://github.com/Soypete/Golang_tutorial_zero_to_hero)
+- [Tour of Go](https://go.dev/tour/welcome/1)
+- [Gophercises](https://gophercises.com/)
+
+---
+
+# Day 1 - Rest API protocols
+
+* [Exercise 1](restful-go/README.md): std lib listenAndServe
+* [Quiz](http-quiz/): Status Codes
+* [Exercise 2](restful-go/README.md): Using a web framework
+* [Exercise 3](restful-go/README.md): Client to query hosted server 
+* [Exercise 4](restful-go/README/md): HttpTests
  
-# Databases for webservices
+# Day 2 - Databases for webservices
 
-## TODO: 
-* Exercise 1: Connect to a live database
-* live coding: sqlc
-* Exercise 2: Add client and interface
-* Exercise 3: Unit tests with mock client
-* Example: integration testing with github actions
+* [Exercise 1](database/README.md): Connect to a live database
+* [live coding](database/demo/): [SQLC](https://sqlc.dev/) and [goose](https://github.com/pressly/goose)
+* [Exercise 2](database/README.md): Add client and interface
+* [Exercise 3](database/README.md): Unit tests with mock client
+* [SQL quiz](sql-quiz)
 
-# Metrics and Monitoring 
+# Day 3 - Metrics and Monitoring 
 
-## TODO:
-* Quiz Auth Tokens
-* Exercise 1: API Auth
-    - add auth for a Hello $user
-* Exercise 2: Middleware
-* Exercise 3: Addins middleware tests
-* Exercise 4: add monitoring for endpoints
-    - hosted
-    - local with docker
-* Exercise 5: build some alerts
-    - hosted
-    - local with docker
+* [Exercise 1](reliable-webservice-go/README.md): API Auth
+* [Exercise 2](reliable-webservice-go/README.md): Middleware
+* [Exercise 3](reliable-webservice-go/README.md): add monitoring for endpoints
 
 ---
 
