@@ -18,9 +18,10 @@ The [Standard Library](https://pkg.go.dev/net/http) provides all the functionali
 
 _Instructions:_ Pick a web framework and implement a server that can accept a username, validate it, and print the username to standard out. Add logic to handle duplicate usernames, empty username parameters, or any additional error cases. When a username is accepted and printed to standard out return a 200 class status code. If the parameter is empty or invalid return a 400 class error code. Handle any other errors. _We will connect this server to a database in the Day 2 exercises_
 
-An example of the finished exercise using the [Chi](https://github.com/go-chi/chi) framework is in the directory [ex-2-webframeworks/framework.go](/ex-2-webframeworks/framework.go).
+Examples of the finished exercise:
 
-Another example using [go-fiber](https://github.com/gofiber/fiber) can be found [here](https://github.com/Soypete/WebServices-in-3-weeks/tree/main/restful-go/ex-2-fiber).
+* using the [Chi web framework](/ex-2-webframeworks/framework.go).
+* using the [Fiber web framework](/ex-2-fiber/fiber.go).
 
 _*Note:* you do not have to do this with a web framework. Feel free to use the standard library `net/http` tooling if you are more comfortable. The opstins for using a web framework are just to try you hand at evaluating popular opensource tools. But just like adding any tool to your software start there are risks and rewards._
 
