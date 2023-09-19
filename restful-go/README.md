@@ -35,6 +35,8 @@ Here are some examples of opensource frameworks:
 
 Using the standard library to create a client that calls your new web endpoint. To connect to you server, you will need to run your server in one different and the client app in a different terminal window.
 
+_Extra Practice:_ Lots of companies use [Postman](https://www.postman.com/) to test their service endpoints. Build a client in postman that will call your server. Save you postman solution and generate a go client from the [Postman UI](<F5>nhttps://learning.postman.com/docs/sending-requests/generate-code-snippets/). Does you generated go code match the one you build?
+
 ### [Exercise 4](/ex-4-test/framework_tests.go)
 
 Using the [httptest](https://pkg.go.dev/net/http/httptest#example-ResponseRecorder) package add some tests for at least one of our newly created endpoints. You should have one test that checks for a 200s class error and one that tests for a 400s class error. Add additional test validations as time allows.
