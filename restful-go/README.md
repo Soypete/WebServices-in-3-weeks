@@ -12,7 +12,9 @@ In a main function, create a webserver using the `ListenAndServe()` function. Th
 
 _NOTE_: `ListenAndServe()` is great for prototyping and non-production development. When you are building out your services, make sure you have security in mind. Use a custom `mux`. We will learn more aabout security best practices later on in the course. Check out [Reliable Webservices](../reliable-webservice-go/README.md).
 
-## [Exercise 2](/ex-2-web-frameworks/framework.go) Build a Server Using an opensource Framework
+---
+
+### [Exercise 2](/ex-2-web-frameworks/framework.go) Build a Server Using an opensource Framework
 
 The [Standard Library](https://pkg.go.dev/net/http) provides all the functionality needed to build a robust web server, but sometimes, instead of building out your own infrastructre, there is a benefit to adopting an opensource frameworks at the backbone of your server infrastructure. This exercise is you chance to experiment with some popular Go web frameworks.
 
@@ -31,11 +33,15 @@ Here are some examples of opensource frameworks:
 * [Gin](https://github.com/gin-gonic/gin) <!-- uses it own context that predates context.Context-->
 * [Fiber](https://github.com/gofiber/fiber) <!-- uses fasthhtp -->
 
+---
+
 ### [Exercise 3](/ex-3-clients/client.go) Build a Go app that calls your new endpoint.
 
 Using the standard library to create a client that calls your new web endpoint. To connect to you server, you will need to run your server in one different and the client app in a different terminal window.
 
 _Extra Practice:_ Lots of companies use [Postman](https://www.postman.com/) to test their service endpoints. Build a client in postman that will call your server. Save you postman solution and generate a go client from the [Postman UI](<F5>nhttps://learning.postman.com/docs/sending-requests/generate-code-snippets/). Does you generated go code match the one you build?
+
+---
 
 ### [Exercise 4](/ex-4-test/framework_tests.go)
 
