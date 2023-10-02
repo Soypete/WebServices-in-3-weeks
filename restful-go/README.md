@@ -10,7 +10,7 @@ In a main function, create a webserver using the `ListenAndServe()` function. Th
 
 * reference: [go-by-example Https server](https://gobyexample.com/http-servers)
 
-\_ _NOTE_: `ListenAndServe()` is great for prototyping and non-production development. When you are building out your services, make sure you have security in mind. Use a custom `mux`. We will learn more aabout security best practices later on in the course. Check out [Reliable Webservices](../reliable-webservice-go/README.md).
+_NOTE_: `ListenAndServe()` is great for prototyping and non-production development. When you are building out your services, make sure you have security in mind. Use a custom `mux`. We will learn more aabout security best practices later on in the course. Check out [Reliable Webservices](../reliable-webservice-go/README.md).
 
 ## [Exercise 2](/ex-2-web-frameworks/framework.go) Build a Server Using an opensource Framework
 
