@@ -4,11 +4,15 @@ This section of the course contains examples and exercises for effectively lever
 
 ## Exercise 1
 
-Use the appropriate database driver and go module to connect to the provided postgres database. The username and password are provided by the instructor (See below if completing independently). Once you have connected run a query based on the following schema...
+In your server project, add your preferred database driver and connect to the database in the main function (if you missed day one's exercises or have them in a different location using the [ex-1-connection/main.go](ex-1-connection/main.go)). After you have connected and verified your connection, explore the database. Make sure to query the database's users table and handle the error. Try running `SELECT`, `INSERT`, and `UPDATE` statements
 
-TODO: include an ERD or other schema docs.
+### Follow up questions:
 
-_NOTE_: If you are completeling this indepently. You can run postgres locally in a docker container using the following command.
+* what kind of package organization would make sense for organizing your database logic?
+* what data base driver did you pick?
+* did the data persist?
+
+_NOTE_: If you are not using postgres or are completeling this indepently. You can run many datbases locally using docker. Below is an example of running postgres locally in a docker container. You will need to `CREATE` your tables and `INSERT` data into the table.
 
 ```
 docker pull postgres
