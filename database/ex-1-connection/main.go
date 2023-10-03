@@ -1,30 +1,17 @@
+// to run postgres locally, you can use docker
+// docker pull postgres
+// docker run --name postgres -e POSTGRES_PASSWORD=postgres -p 5431:5431 -d postgres
+//
+// otherwise use the sqlite provided in the repo
+
 package main
 
-import (
-	"fmt"
-	"net/url"
-
-	"github.com/jmoiron/sqlx"
-)
+// add driver here
 
 func main() {
-	params := url.Values{}
-	params.Set("sslmode", "disable")
+	connectionString := "/database.db"
+	// TODO: connect to sqlite database here
 
-	// this is a personal preference to use url.URL to
-	// build up the connection string. This works well for
-	// postgres, but other drivers might have their own quirks.
-	connectionString := url.URL{
-		Scheme:   "postgresql",
-		User:     url.UserPassword("postgres", "postgres"),
-		Host:     "localhost:5431",
-		Path:     "postgres",
-		RawQuery: params.Encode(),
-	}
-
-	db, err := sqlx.Connect("postgres", connectionString.String())
-	if err != nil {
-		panic(err)
-	}
-	fmt.Println(db.Ping())
+	// TODO: query the database here
+	db.Close()
 }
