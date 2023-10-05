@@ -12,12 +12,16 @@ In your server project, add your preferred database driver and connect to the da
 * what data base driver did you pick?
 * did the data persist?
 
-_NOTE_: If you are not using postgres or are completeling this indepently. You can run many datbases locally using docker. Below is an example of running postgres locally in a docker container. You will need to `CREATE` your tables and `INSERT` data into the table.
+_NOTE_: If you are not using postgres or are completeling this indepently. You can run many datbases locally using docker. Below is an example of running postgres locally in a docker container.
 
 ```
 docker pull postgres
 docker run -e POSTGRES_PASSWORD=my_password -e POSTGRES_USERNAME=user1 -p 5431:5432 postgres
 ```
+
+After you get docker running in your local environment setup your database. You will need to `CREATE` your tables and `INSERT` data into the table. You can do this in your Go app or via a sql script editor. [psql](https://www.postgresql.org/docs/current/app-psql.html) is postgres's command line tool.
+
+An example of a go app that connect to a local postgres instance is in [database/ex-1-connection/solution](database/ex-1-connection/solution/postgres.go).
 
 ## Live Demo
 
