@@ -31,9 +31,9 @@ Recording to come
 
 ## Exercise 2
 
-Build a client and interface around your database connection.
+Build a client and interface around your database connection. You can use your existing main.go file and build new database package for your abstraction, or you can use the template files found in [database/ex-2-abstraction](database/ex-2-abstraction/main.go). Make sure to create an interface, a User struct, a database client, and the methods to create, update, and query the User data. If you have any questions please put them in the chat.
 
-Questions:
+Follow-up Questions:
 
 * what are the differences between manually creating a database object vs generating one with sqlc?
 
