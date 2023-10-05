@@ -12,7 +12,7 @@ import (
 
 func main() {
 	fileName := "/database.db"
-	db, err := sql.Open("sqlite", fileName)
+	db, err := sql.Open("sqlite3", fileName)
 	if err != nil {
 		log.Fatal(err)
 	}
