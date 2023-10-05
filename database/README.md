@@ -39,6 +39,6 @@ Follow-up Questions:
 
 ## Exercise 3 mock database
 
-Using your new database interface mock the database functions into your [tests from last week.](../restful-go/ex-4-tests/framework_test.go)
+Using your new database interface mock the database functions into your [tests from last week.](../restful-go/ex-4-tests/framework_test.go). The goal is to imitate db interactions without connecting to the db. You will need to add the DB package to the same repo that your server lives in.
 
-TODO: copy tests from cli-game. and edit the interface to be inside the test suite.
+[Here](https://github.com/Soypete/golang-cli-game/blob/24dc57852dee27bb17120555d3d390bd17a78d13/server/api_test.go#L14) are some working tests that use `passBD{}` and `failDB{}` to mock database functionality in an api test.
