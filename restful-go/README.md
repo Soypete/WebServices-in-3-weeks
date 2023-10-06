@@ -39,7 +39,7 @@ Here are some examples of opensource frameworks:
 
 Using the standard library to create a client that calls your new web endpoint. To connect to you server, you will need to run your server in one different and the client app in a different terminal window.
 
-_Extra Practice:_ Lots of companies use [Postman](https://www.postman.com/) to test their service endpoints. Build a client in postman that will call your server. Save you postman solution and generate a go client from the [Postman UI](<F5>nhttps://learning.postman.com/docs/sending-requests/generate-code-snippets/). Does you generated go code match the one you build?
+_Extra Practice:_ Lots of companies use [Postman](https://www.postman.com/) to test their service endpoints. Build a client in postman that will call your server. Save you postman solution and generate a go client from the [Postman UI](https://learning.postman.com/docs/sending-requests/generate-code-snippets/). Does you generated go code match the one you build?
 
 ---
 
