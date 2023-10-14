@@ -8,13 +8,17 @@ These are the code-samples, exercises, quizzes, and links needed for this course
 
 Auth tooling is sometimes the first or last measure of security for your endpoints. There are various methods for adding auth to your server endpoint. When building production services the methods you choose for authentiction and authorization will be determined by security professionals, but how you implement them is up to you as a developer.
 
-Add an auth method to your server. You can use any method you like such as a middle-ware, a helper functions or, by manually adding the logic to a single function. 
+Add an auth method to your server. You can use any method you like such as a middle-ware, a helper functions or, by manually adding the logic to a single function.
 
 Here are some examples of how to add different kinds of auth in your apps. You can pick one to use as a reference for you code.
 
 * [chi middleware](https://github.com/go-chi/chi/blob/master/middleware/basic_auth.go)
 * [manual basic token](https://github.com/Soypete/golang-cli-game/blob/main/server/helpers.go#L36)
-* [other-JWT](https://pkg.go.dev/github.com/golang-jwt/jwt/v5#example-Parse-Hmac)
+* [JWT](https://pkg.go.dev/github.com/golang-jwt/jwt/v5#example-Parse-Hmac)
+* [go-JWT example package]()
+* [Go-guardian]
+* [Oauth twitter]
+* [Oauth2 golang.com/x]
 
 ### [Exercise 2](/ex-2-middleware/middleware.go) Add middleware to your go server
 
@@ -43,9 +47,9 @@ Here is an [example](https://github.com/Soypete/golang-cli-game/blob/main/server
 
 Monitoring is often setup as part of the middleware for commonly used metrics like db calls and http status codes. Often there are other metrics that should be added to track specific business logic and functionality. [Expvars](https://pkg.go.dev/expvar) are provided by the go standard library as a method for exposing metrics to an endpoint where they can be read via a web browser or consumed by a tracking service.
 
-[Prometheus](https://prometheus.io/docs/guides/go-application/) is a very common opensource solution for adding metrics to your web services. It adds metrics to end points that can be scraped into a prometheus instance. 
+[Prometheus](https://prometheus.io/docs/guides/go-application/) is a very common opensource solution for adding metrics to your web services. It adds metrics to end points that can be scraped into a prometheus instance.
 
-*NOTE:* In this exercise it is not intended to have a prometheus instance up and running, just to setup the endpoint where you can manually view the metrics.
+_NOTE:_ In this exercise it is not intended to have a prometheus instance up and running, just to setup the endpoint where you can manually view the metrics.
 
 Using Expvars and/or Prometheus sdk add some custom metrics.
 
