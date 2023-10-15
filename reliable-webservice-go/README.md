@@ -89,3 +89,46 @@ Using Expvars and/or Prometheus sdk add some custom metrics.
 		},
 	))
 ```
+
+#### Bonus exercise: Add Pprof
+
+Add pprof to your service to see how it uses memory when handling api calls. Run pprof and see what insights are available to you.
+
+First add the pprof driver to your app.
+
+```go
+import _ "net/http/pprof"
+```
+
+_*NOTE*: the "\_" means that the import is added globally as a backend system. This is common for servers, db drivers, etc_
+
+add a pprof server as it's own goroutine in your main function.
+
+```go
+// run pprof
+go func() {
+	http.ListenAndServe("localhost:6060", nil)
+}()
+```
+
+install [graphviz](https://graphviz.org/download/) on your machine to get the visual insights.
+
+_Mac:_
+
+```bash
+brew install graphviz
+```
+
+run pprof while your worker-pool is executing
+
+```bash
+go tool pprof -http=:18080 http://localhost:6060/debug/pprof/profile?seconds=30
+```
+
+In the default graph each node is a function that your program is running. Size and color indicate how much cpu and time each function is taking.
+
+to access the commandline tool tool run
+
+```bash
+go tool pprof http://localhost:6060/debug/pprof/allocs
+```
