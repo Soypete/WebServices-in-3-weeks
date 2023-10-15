@@ -22,9 +22,12 @@ Here are some examples of how to add different kinds of auth in your apps. You c
 
 ### [Exercise 2](/ex-2-middleware/middleware.go) Add middleware to your go server
 
-Middleware allows you add complex funcitonality to your endpoints. You can use middle ware to add metrics, auth, profiling or custom logic to your programs.
+_Middleware_: _Middleware also refers to the software that separates two or more APIs and provides services such as rate-limiting, authentication, and logging._[wikipedia](https://en.wikipedia.org/wiki/Middleware) The implementation is typically “built-in” functions. In Go, this tends to be platform style tooling shared across the organization. It allows you add complex funcitonality to your endpoints.
 
-Using one of the same web frameworks you used for your day 1 exercises or the go standard library, add a middle ware function to your server.
+Using the same web frameworks you used for your webserver or the go standard library, add a middleware function to your server. You can use middleware to add metrics, auth, profiling or custom logic to your programs. In this exercise add logging, retry, rate limiting or replace the auth from exercise 1 with a middleware.
+
+Below are framework docs, they will contain examples of build in middleware that you can add with single line functions. They also show you ways of adding custom middleware to your services.
+
 Web frameworks:
 
 * [Chi](https://github.com/go-chi/chi)
@@ -42,6 +45,15 @@ Here is an [example](https://github.com/Soypete/golang-cli-game/blob/main/server
 	r.Use(middleware.RealIP)
 	r.Use(middleware.Recoverer)
 ```
+
+### Pprof live Demo
+
+Pprof is an incredible builting profiling tool. It is the only tool currently provided to in the standard library what will let you follow memory hot path.
+If you plad on Using pprof are part of your monitoring suit you will need to install [graphviz](https://graphviz.org/download/) first.
+
+[Pprof youtube video](https://youtu.be/KzivSSjnBls)
+
+For more information check out this talk, [Pprof for beginners](https://www.youtube.com/watch?v=HjzJ5r2D8ZM)
 
 ### [Exercise 3](/ex-3-monitoring/monitoring.go) Add some monitoring endpoints to your server
 
