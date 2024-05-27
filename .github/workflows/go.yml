@@ -24,3 +24,6 @@ jobs:
       with:
         version: v1.29
         only-new-issues: true
+    - name: test
+      # run only valid tests
+      run: go test -v ./resftul-go/...

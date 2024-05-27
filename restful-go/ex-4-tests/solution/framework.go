@@ -2,7 +2,7 @@
 // 1. chi - https://github.com/go-chi/chi
 
 // to run this exercise:
-// go run test -run TestUserEndpoints
+// go test -run TestUserEndpoints
 package framework
 
 import (

@@ -1,6 +1,6 @@
 module github.com/soypete/WebServices-in-3-weeks
 
-go 1.20
+go 1.21
 
 require (
 	github.com/go-chi/chi v1.5.4
@@ -8,7 +8,7 @@ require (
 )
 
 require (
-	github.com/gofiber/fiber/v2 v2.49.2
+	github.com/gofiber/fiber/v2 v2.52.1
 	github.com/mattn/go-sqlite3 v1.14.17
 	github.com/pressly/goose/v3 v3.11.2
 )
