@@ -6,7 +6,7 @@ These are the code-samples, exercises, quizzes, and links needed for this course
 
 ### [Exercise 1](/ex-1-auth/auth.go) Add auth to your server endpoints
 
-Auth tooling is sometimes the first or last measure of security for your endpoints. There are various methods for adding auth to your server endpoint. When building production services the methods you choose for authentiction and authorization will be determined by security professionals, but how you implement them is up to you as a developer.
+Auth tooling is sometimes the first or last measure of security for your endpoints. There are various methods for adding auth to your server endpoint. When building production services the methods you choose for authentication and authorization will be determined by security professionals, but how you implement them is up to you as a developer.
 
 Add an auth method to your server. You can use any method you like such as a middle-ware, a helper functions or, by manually adding the logic to a single function.
 
@@ -22,9 +22,9 @@ Here are some examples of how to add different kinds of auth in your apps. You c
 
 ### [Exercise 2](/ex-2-middleware/middleware.go) Add middleware to your go server
 
-_Middleware_: _Middleware also refers to the software that separates two or more APIs and provides services such as rate-limiting, authentication, and logging._[wikipedia](https://en.wikipedia.org/wiki/Middleware) The implementation is typically “built-in” functions. In Go, this tends to be platform style tooling shared across the organization. It allows you add complex funcitonality to your endpoints.
+_Middleware_: _Middleware also refers to the software that separates two or more APIs and provides services such as rate-limiting, authentication, and logging._[wikipedia](https://en.wikipedia.org/wiki/Middleware) The implementation is typically “built-in” functions. In Go, this tends to be platform style tooling shared across the organization. It allows you add complex functionality to your endpoints.
 
-Using the same web frameworks you used for your webserver or the go standard library, add a middleware function to your server. You can use middleware to add metrics, auth, profiling or custom logic to your programs. In this exercise add logging, retry, rate limiting or replace the auth from exercise 1 with a middleware.
+Using the same web frameworks you used for your web server or the go standard library, add a middleware function to your server. You can use middleware to add metrics, auth, profiling or custom logic to your programs. In this exercise add logging, retry, rate limiting or replace the auth from exercise 1 with a middleware.
 
 Below are framework docs, they will contain examples of build in middleware that you can add with single line functions. They also show you ways of adding custom middleware to your services.
 
@@ -63,7 +63,7 @@ Monitoring is often setup as part of the middleware for commonly used metrics li
 
 _NOTE:_ In this exercise it is not intended to have a prometheus instance up and running, just to setup the endpoint where you can manually view the metrics.
 
-Using Expvars and/or Prometheus sdk add some custom metrics.
+Using Expvars and/or Prometheus SDK add some custom metrics.
 
 [Example](https://github.com/Soypete/golang-cli-game/blob/main/server/setup.go#L53)
 
@@ -92,7 +92,7 @@ Using Expvars and/or Prometheus sdk add some custom metrics.
 
 #### Bonus exercise: Add Pprof
 
-Add pprof to your service to see how it uses memory when handling api calls. Run pprof and see what insights are available to you.
+Add pprof to your service to see how it uses memory when handling API calls. Run pprof and see what insights are available to you.
 
 First add the pprof driver to your app.
 
@@ -102,7 +102,7 @@ import _ "net/http/pprof"
 
 _*NOTE*: the "\_" means that the import is added globally as a backend system. This is common for servers, db drivers, etc_
 
-add a pprof server as it's own goroutine in your main function.
+Add a pprof server as it's own goroutine in your main function.
 
 ```go
 // run pprof
@@ -111,7 +111,7 @@ go func() {
 }()
 ```
 
-install [graphviz](https://graphviz.org/download/) on your machine to get the visual insights.
+Install [graphviz](https://graphviz.org/download/) on your machine to get the visual insights.
 
 _Mac:_
 
@@ -125,9 +125,9 @@ run pprof while your worker-pool is executing
 go tool pprof -http=:18080 http://localhost:6060/debug/pprof/profile?seconds=30
 ```
 
-In the default graph each node is a function that your program is running. Size and color indicate how much cpu and time each function is taking.
+In the default graph each node is a function that your program is running. Size and color indicate how much CPU and time each function is taking.
 
-to access the commandline tool tool run
+to access the command-line tool tool run
 
 ```bash
 go tool pprof http://localhost:6060/debug/pprof/allocs
