@@ -16,7 +16,7 @@ _NOTE_: If you are not using postgres or are completing this independently. You 
 
 ```
 docker pull postgres
-docker run -e POSTGRES_PASSWORD=my_password -e POSTGRES_USERNAME=user1 -p 5431:5432 postgres
+docker run -e POSTGRES_PASSWORD=postgres -e POSTGRES_USERNAME=postgres -p 5431:5432 postgres
 ```
 
 After you get docker running in your local environment setup your database. You will need to `CREATE` your tables and `INSERT` data into the table. You can do this in your Go app or via a sql script editor. [psql](https://www.postgresql.org/docs/current/app-psql.html) is postgres's command line tool.

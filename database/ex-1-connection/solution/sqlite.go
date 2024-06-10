@@ -9,7 +9,7 @@ import (
 )
 
 func main() {
-	fileName := "database/ex-1-connection/sqlite.db"
+	fileName := "database/ex-1-connection/solution/sqlite.db"
 	db, err := sql.Open("sqlite3", fileName)
 	if err != nil {
 		log.Fatal(err)

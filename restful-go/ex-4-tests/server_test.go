@@ -25,7 +25,13 @@ func testPassGetUsername(t *testing.T) {
 }
 
 func testFailGetUsernameempty(t *testing.T) {
-	// TODO: implement
+	w := httptest.NewRecorder()
+	req := httptest.NewRequest("GET", "/getUsername/", nil)
+	getUsername(w, req)
+	resp := w.Result()
+	if resp.StatusCode != 400 {
+		t.Errorf("Expected status code 400, got %d", resp.StatusCode)
+	}
 }
 
 func testPassUpdateUser(t *testing.T) {
