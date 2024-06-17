@@ -43,9 +43,9 @@ func deleteUsername(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
-	http.HandleFunc("/getUsername", getUsername)
-	http.HandleFunc("/updateUsername", updateUsername)
-	http.HandleFunc("/deleteUsername", deleteUsername)
+	http.HandleFunc("/getUsername/", getUsername)
+	http.HandleFunc("/updateUsername/", updateUsername)
+	http.HandleFunc("/deleteUsername/", deleteUsername)
 
 	http.ListenAndServe(":8090", nil)
 }
