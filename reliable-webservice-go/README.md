@@ -15,7 +15,7 @@ Here are some examples of how to add different kinds of auth in your apps. You c
 * [chi middleware](https://github.com/go-chi/chi/blob/master/middleware/basic_auth.go)
 * [manual basic token](https://github.com/Soypete/golang-cli-game/blob/main/server/helpers.go#L36)
 * [JWT](https://pkg.go.dev/github.com/golang-jwt/jwt/v5#example-Parse-Hmac)
-* [go-JWT example package]()
+* [go-JWT example package](https://pkg.go.dev/github.com/golang-jwt/jwt/v5)
 * [Go-guardian](https://github.com/shaj13/go-guardian/tree/master/_examples)
 * [Oauth twitter](https://github.com/forgeutah/tweet_automated_bot/blob/main/client/setup.go)
 * [Oauth2 golang.com/x](https://github.com/Soypete/Meetup-chat-server/blob/main/twitch/auth.go)
