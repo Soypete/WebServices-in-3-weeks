@@ -45,7 +45,7 @@ _Extra Practice:_ Lots of companies use [Postman](https://www.postman.com/) to t
 
 ### [Exercise 4](/restful-go/ex-4-tests/solution/framework_test.go)
 
-Using the [httptest](https://pkg.go.dev/net/http/httptest#example-ResponseRecorder) package add some tests endpoints in [ex-4-test/server.go]. You can use the file [server_test.go](ex-4-tests/server_test.go) to implement the pass and fail checks for each of the endpoints. You should have one test that checks for a 200s class error and one that tests for a 400s class error.
+Using the [httptest](https://pkg.go.dev/net/http/httptest#example-ResponseRecorder) package add some tests endpoints in [server.go](ex-4-tests/server.go). You can use the file [server_test.go](ex-4-tests/server_test.go) to implement the pass and fail checks for each of the endpoints. You should have one test that checks for a 200s class error and one that tests for a 400s class error.
 
 _Extra Practice:_ If you prefer one of the frameworks we used in the example try writing tests for it. Using the endpoints you wrote in `Exercise 3` write tests to simulate a _200_ class status code, a _400_ class status code, and a _500_ class status code.
 Here are some examples of tests for the above open source frameworks.
