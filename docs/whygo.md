@@ -53,8 +53,19 @@ for Exercices please check out this [repo](https://github.com/Soypete/WebService
 
 ---
 
+### Why Go Beats the Competition  
+
+Currently, Python frameworks like Django/FastAPI or Java's Spring/Boot framework are popular for building web services, but they oversimplify the process of writing software making it easy to loose sight of programming fundamentals. Go is a [modern language]() that prioritizes performance, reliability, and simplicity. It doesn't shy away from the need for intentional code design by enforcing strict typing and error handling. The `httptest` package allows for easy testting of failures cases and intentional creations of [API contracts](). This is why Go is the best choice, it is quick and easy to build with so we can focus on the important things like experince and predictability with tests, contacts, and solid design.
+
+### Learn to Build Web Services with Go  
+
+If you’re ready to explore Go’s capabilities, the following resources will help you get started. There is text and assignments to help you learn the basics of Go and build your first web service.
+
 ## Conclusion
 
 Go is the best modern programming language for web services. Its standard library, protocol support, security features, readability, scalability, and maintainability make it the ideal choice for building robust, reliable, and secure web services. Whether you're building RESTful APIs, gRPC services, or WebSocket connections, Go has you covered. If you're new to Go, I encourage you to explore its capabilities and see for yourself why it's the best choice for web service development.
 
+---
+
+Resources:
 
