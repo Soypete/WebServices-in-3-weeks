@@ -47,6 +47,79 @@ I am a data practitioner by trade, so when I think about making API calls, I ten
 
 An example of this is the Header. The Header is used to store information about the user, such as the user's identity, roles, and authentication. This information is used by the server to determine whether the user has the right to make the request. If the user does not have the right to make the request, the server will return an error message to the client. The Header is also used to store information about the request itself, such as the content type of the request and the content type of the response. This information is used by the server to determine how to process the request and how to format the response. 
 
+### curl
+
+[Curl]() is a command-line tool that is used to make HTTP requests. It is a very powerful tool that can be used to test RESTful APIs. Here is an example of how to use curl to make a GET request to a RESTful API:
+
+```bash
+curl -X GET https://cat-fact.herokuapp.com/facts
+```     
+
+This command will make a GET request to the cat-fact API and return a list of facts about cats. You can use curl to make other types of requests as well, such as POST, PUT, and DELETE requests. I always recommend testing apis with curl before you start writing code. This will help you understand how the API works and what kind of data you can expect to receive from the server.
+
+_NOTE: For extra practice download the [jq]() tool and use it to parse the JSON response from the cat-fact API. This will help you understand how to work with JSON data in your code._ 
+
+```bash
+curl -X GET https://cat-fact.herokuapp.com/facts | jq
+```
+
+### Postman
+
+[Postman]) is a popular tool for testing Restful APIs. The strength of Postman is saving and sharing requests. You can create environments and collections to organize your requests. You can also use Postman to create tests for your APIs. This is a great way to automate testing and make sure that your APIs are working correctly. Postman is a great tool for testing APIs. If you are not as comfortable with the command line, I recommend using Postman to test your APIs.
+
+
 ## Golang RESTful basics
+
+To start our journey into understanding how to build webservers with Go, we will start with the standard library.
+
+### Writing a simple server
+
+All the tools needed to create and maintain a RESTful API server can be found in the Standard Library. It supports a variety of protocols including TCP, UDP, HTTP/1.0, HTTP/2.0. The Standard Library allows you to create a variety of endpoints, custom middleware, and contexts like timeouts. 
+
+Here is an example of a simple server that listens on port 8080 and returns "Hello, World!" when you make a GET request to the root endpoint:
+
+```go
+func main() {
+	helloHandler := func(
+		w http.ResponseWriter,
+		req *http.Request) {
+		io.WriteString(w, "Hello, world!\n")
+	}
+
+	http.HandleFunc("/hello", helloHandler)
+	log.Fatal(http.ListenAndServe(":8080", nil))
+}
+
+```
+
+This curl command will make a GET request to the server and return "Hello, World!":
+
+```bash
+curl -X GET http://localhost:8080/hello
+```
+
+Go by default uses multiplexing to handle multiple requests at the same time. This means the classic `http.ListenAndServe` is a Mux server.
+
+_MUX is a session management protocol separating the underlying transport from the upper level application protocols. It provides a lightweight communication channel to the application layer by multiplexing data streams on top of a reliable stream oriented transport._  [source](https://www.w3.org/Protocols/MUX/)
+
+For each endpoint you define on a server you will need to create a handler function. The handler function takes two arguments, a `http.ResponseWriter` and a `*http.Request`. The `http.ResponseWriter` is used to write the response to the client. The `*http.Request` is used to read the request from the client. You can use the `http.ResponseWriter` to write the response to the client. You can use the `*http.Request` to read the request from the client. If you want additional data to be provided to the handler functions you should make sure that the functions are method on a struct that contains the data you need, or you can use a closure to pass the data to the handler function.
+
+#### Status Codes
+
+Go has a built-in package called `http` that contains a list of status codes that you can use to return to the client. Since these are constant you can use them in you code to make sure that you are returning the correct status code to the client. I highly recommend using the harcoded constants for status codes because they are self-documenting and make your code easier to read.
+
+```go
+func main() {
+    helloHandler := func(
+        w http.ResponseWriter,
+        req *http.Request) {
+        w.WriteHeader(http.StatusOK)
+        io.WriteString(w, "Hello, world!\n")
+    }
+
+    http.HandleFunc("/hello", helloHandler)
+    log.Fatal(http.ListenAndServe(":8080", nil))
+}
+```
 
 
