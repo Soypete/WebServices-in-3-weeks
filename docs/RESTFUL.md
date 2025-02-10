@@ -122,4 +122,21 @@ func main() {
 }
 ```
 
+This is a good point to stop and test your skills. here is an exercise for you to try:
 
+## Using a Web Framework
+
+The standard library contains all the tools you need to create a RESTful API server, but sometimes for team conseensuus and speed you make choose a webframe work that abstracts away a little but of the boilerplate code. There are many web frameworks available for Go, such as [Echo](https://echo.labstack.com/), [Chi](https://github.com/go-chi/chi), [Gin](https://github.com/gin-gonic/gin), and [Fiber](https://github.com/gofiber/fiber). Each of these frameworks has its own strengths and weaknesses, so you should choose the one that best fits your needs.
+
+When you are choosing a web framework, you should consider the following factors:
+ - Adding complex middleware
+ - Adding error handling
+ - Add url parsing tools
+
+ _*NOTE*: url parsining for ids was added in Go (1.22)[https://go.dev/blog/routing-enhancements] so you may not need a web framework for this feature, but it is still a consideration because every web framework has its own way of handling url parsing._
+
+Echo on the newest and in my opinons is the most perscriptive. It has a lot of boilerplate and it think it is hard to get used to. Gin is the oldest and post popular by stars(and a good friend of mine is an original contributor), but it was written pre Go context package so it has it's own concept of context. Chi is very lightweight and has a lot of features that are not in the standard library, I thought it was the easiest to implement and chose it for my own project. Fiber was the one most recommeneded by my twitch chat. They say it is the fastest and it also is very lightweight.
+
+Here is an example in Chi:
+
+Here is an example in Fiber:
