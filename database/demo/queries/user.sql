@@ -12,3 +12,7 @@ DO NOTHING;
 DELETE FROM users
 WHERE username = $1;
 
+-- name: GetAUsersGames :many
+SELECT * FROM games
+join users on users.id = games.user_id
+WHERE users.username = $1;
