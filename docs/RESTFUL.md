@@ -137,6 +137,116 @@ When you are choosing a web framework, you should consider the following factors
 
 Echo on the newest and in my opinons is the most perscriptive. It has a lot of boilerplate and it think it is hard to get used to. Gin is the oldest and post popular by stars(and a good friend of mine is an original contributor), but it was written pre Go context package so it has it's own concept of context. Chi is very lightweight and has a lot of features that are not in the standard library, I thought it was the easiest to implement and chose it for my own project. Fiber was the one most recommeneded by my twitch chat. They say it is the fastest and it also is very lightweight.
 
+
 Here is an example in Chi:
 
+```
+func main() {
+	r := chi.NewRouter()
+	r.Get("/", func(w http.ResponseWriter, r *http.Request) {
+		w.Write([]byte("welcome to game server"))
+	})
+
+	// setup routes
+	r.Route("/register", func(r chi.Router) {
+		// subroutes for register
+		r.Route("/{username}", func(r chi.Router) {
+			r.Get("/get", getUsername)          // GET /register/123/get
+		})
+	})
+func getUsername(w http.ResponseWriter, r *http.Request) {
+	username := chi.URLParam(r, "username")
+	// check if username is empty -> return 400
+	if username == "" {
+		http.Error(w, http.StatusText(400)+", username parameter cannot be empty", 400)
+		return
+	}
+
+	// return username and 200
+	w.Write([]byte(username))
+    }
+}
+
+```
+
 Here is an example in Fiber:
+
+```
+func main() {
+	app := fiber.New()
+
+	app.Get("/", func(c *fiber.Ctx) error {
+		return c.SendString("Hello, World 👋!")
+	})
+	app.Route("/3weeks-go", func(api fiber.Router) {
+		api.Get("/testGet", func(c *fiber.Ctx) error {
+			return c.SendString("Hello, World!")
+		}).Name("foo") // /test/foo (name: test.foo)
+		api.Post("/testPost", func(c *fiber.Ctx) error {
+			body := c.Body()
+			if len(body) == 0 {
+				return c.SendStatus(fiber.StatusBadRequest)
+			}
+			return c.SendString(string(body))
+		}).Name("bar") // /test/bar (name: test.bar)
+	}, "test.")
+
+	app.Listen(":3000")
+}
+```
+
+This is a good point to stop and test your skills. here is an exercise for you to try:
+
+[Exercise](https://github.com/Soypete/WebServices-in-3-weeks/tree/main/restful-go#exercises)
+
+## Golang RESTful Client
+
+All servers have coresponding programs that call their endpoints. We call them clients. In order to write a client in Go you only need 4 things: 
+
+* http.Client: an instance of the [http.Client](https://pkg.go.dev/net/http#Client) struct that contains network settings
+* http.Request: an instance of the [http.Request](https://pkg.go.dev/net/http#Request) struct that contains the request information like path, http method, and headers
+* context.Context: an instance of the [context.Context](https://pkg.go.dev/context#Context) struct that contains information about the request like timeouts and deadlines. It also is used for metadata like authentication
+* Request payload: the body of the request that contains the data you want to send to the server
+
+
+Here is an example of a simple client that makes a GET request to the server we created earlier:
+
+```go
+	req.Header.Set("Content-Type", "text/plain")
+	httpClient := http.DefaultClient
+	resp, err := httpClient.Do(req)
+	if err != nil {
+		log.Fatal(err)
+	}
+```
+
+## Testing http servers
+
+Go has a really robust testing framework that allows you to make unit tests for http servers. The [httptest](https://pkg.go.dev/net/http/httptest) package contains a lot of useful tools for testing http servers. You can use the [httptest.NewRequest](https://pkg.go.dev/net/http/httptest#NewRequest) function to create a new request and the [httptest.NewRecorder](https://pkg.go.dev/net/http/httptest#NewRecorder) function to create a new response recorder. The response recorder is used to record the response from the server so you can make assertions about it.
+
+Here is an example of how to use the `httptest` package to test the server we created earlier:
+
+```go
+
+// from https://github.com/Soypete/golang-cli-game/blob/main/server/api_test.go
+func TestPassGetUsernameEmpty(t *testing.T) {
+	...
+	sPass.Router = setupTestRouter(sPass, t)
+	w := httptest.NewRecorder()
+	reqNoUser := httptest.NewRequest("GET", "/register//get", nil)
+	reqNoUser.Header.Set("Authorization", "Basic Y2FwdGFpbm5vYm9keTE6cGFzc3dvcmQK")
+	sPass.Router.ServeHTTP(w, reqNoUser)
+	if status := w.Code; status != http.StatusOK {
+		t.Errorf("handler returned wrong status code: got %v want %v",
+			status, http.StatusOK)
+	}
+}
+```
+
+This is a good point to stop and test your skills. here is an exercise for you to try:
+
+[Exercise](https://github.com/Soypete/WebServices-in-3-weeks/tree/main/restful-go#exercises)
+
+## Conclusion
+
+In this section we learned about RESTful APIs and how to build them in Go. We learned about the different components of a request and how to use them. We also learned about the different HTTP methods and how to use them. Finally, we learned about the different web frameworks available for Go and how to use them.
