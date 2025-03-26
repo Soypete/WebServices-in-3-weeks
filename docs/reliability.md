@@ -1,7 +1,3 @@
-Here’s a fully structured and styled tutorial on **Building Reliable Web Services in Go**, based on Day 3 from your PDF and using the same tone and format as your "RESTful Go" example:
-
----
-
 # Reliable Go Services
 
 In the final part of building production-ready Go web services, we focus on **reliability** — making sure our APIs work under stress, are easy to debug, and can gracefully handle failures. We'll cover:
@@ -224,6 +220,3 @@ Try these exercises to solidify your understanding:
 
 Reliability isn’t just about keeping your server "up"—it’s about observability, security, and scalability. By using tools like `pprof`, `expvar`, Prometheus, and middleware, you can build web services that don’t just work—but are maintainable, measurable, and secure.
 
----
-
-Would you like this pushed as a Markdown doc, or posted as the third article on your Substack/blog?

@@ -1,7 +1,3 @@
-Great — I’ve reviewed the contents of the pull request. Based on that and your example format, here’s the draft of your **Go + SQL** tutorial, styled and structured to match your "RESTful Go" example:
-
----
-
 # Databases in Go
 
 In the previous tutorial, we learned how to build and test a RESTful API server using Go. But most APIs are not just logic—they’re data access layers. In this section, we’ll cover how to interact with databases from Go. Specifically, we’ll cover:
@@ -50,29 +46,83 @@ Go’s built-in database library, `database/sql`, provides a generic interface t
 - SQLite: [`github.com/mattn/go-sqlite3`](https://github.com/mattn/go-sqlite3)
 - DuckDB: [`github.com/marcboeker/go-duckdb`](https://github.com/marcboeker/go-duckdb)
 
+To get a drive into your module, you can use `go get`:
+
+```bash
+go mod init github.com/{username}/repo
+go get "github.com/mattn/go-sqlite3"
+go mod tidy
+```
+
 ### Example: Connecting to Postgres
 
 ```go
 import (
-	"database/sql"
-	_ "github.com/lib/pq"
+	"context"
+	"fmt"
 	"log"
+
+	"github.com/jackc/pgx/v4"
+	_ "github.com/lib/pq"
 )
 
 func main() {
-	connStr := "postgres://user:pass@localhost/dbname?sslmode=disable"
-	db, err := sql.Open("postgres", connStr)
+	connectionString := "postgresql://user:secret@localhost/mydb?sslmode=disable"
+	db, err := pgx.Connect(context.Background(), connectionString)
 	if err != nil {
 		log.Fatal(err)
 	}
-	defer db.Close()
+	fmt.Println("Connected!")
+	db.Close()
+}
+```
 
-	err = db.Ping()
+### Example: mysql
+
+```go
+import (
+	"fmt"
+	"log"
+
+	_ "github.com/go-sql-driver/mysql"
+	"github.com/jmoiron/sqlx"
+)
+
+func main() {
+	connectionString := "server=127.0.0.1;uid=root;pwd=12345;database=test"
+	db, err := sqlx.Connect("mysql", connectionString)
 	if err != nil {
-		log.Fatal("could not connect to db:", err)
+		log.Fatal(err)
 	}
+	fmt.Println("Connected!")
+	db.Close()
+}
+```
 
-	log.Println("Connected to database!")
+### Example sqlite3
+
+```go
+package main
+
+import (
+	"database/sql"
+	"fmt"
+	"log"
+
+	_ "github.com/mattn/go-sqlite3"
+)
+
+func main() {
+	fileName := "/database.db"
+	db, err := sql.Open("sqlite3", fileName)
+	if err != nil {
+		log.Fatal(err)
+	}
+	if err = db.Ping(); err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println("Connected!")
+	db.Close()
 }
 ```
 
@@ -99,6 +149,35 @@ if err := row.Scan(&id); err != nil {
 }
 ```
 
+for postgres you use the numbered placeholders `$1`, `$2`, etc. For MySQL you use `?`.
+
+
+here is an example of a select query to get many columns from a table:
+
+```go
+	rows, err := db.Query("SELECT id, name, email FROM users")
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer rows.Close()
+
+	// Iterate over the rows
+	for rows.Next() {
+		var id int
+		var name, email string
+		err = rows.Scan(&id, &name, &email)
+		if err != nil {
+			log.Fatal(err)
+		}
+		fmt.Println(id, name, email)
+	}
+
+	err = rows.Err()
+	if err != nil {
+		log.Fatal(err)
+	}
+```
+
 ## Managing Schema and Migrations
 
 Rather than hand-writing `CREATE TABLE` statements, you should manage your schema with tools. Go has some great ones:
@@ -109,6 +188,8 @@ Rather than hand-writing `CREATE TABLE` statements, you should manage your schem
 - [`goose`](https://github.com/pressly/goose): schema migration tool
 
 ### Example: Goose Migration
+
+Goose is a database migration tool that lets you write SQL migrations and run them from the command line. You can also use it programmatically by running the migrations in your Go code. I prefer this approach because it keeps your migrations in source control. It also allows you to embed the migrations in your binary.
 
 ```bash
 go install github.com/pressly/goose/v3/cmd/goose@latest
@@ -122,6 +203,18 @@ This creates a file with up/down SQL sections. You can then run:
 ```bash
 goose -dir db/migrations postgres "your-connection-string" up
 ```
+
+here is an video of the [goose migration demo]()
+
+### Example: SQLC
+
+Sqlc is a tool that generates Go code from SQL queries. You write your queries in a `.sql` file and run `sqlc generate` to create Go code. This is great for keeping your queries in one place and generating type-safe Go code.
+
+```bash
+
+```
+
+herre is a videro of the of the [sqlc demo]()
 
 ## Organizing Your DB Code
 
@@ -169,24 +262,38 @@ Now your handlers can depend on the interface rather than a concrete DB connecti
 
 ## Exercises
 
-Here are some hands-on activities to try:
+### Exercise 1
 
-1. **Connect to a Postgres database**  
-   Use the `sql.Open` example to connect to a database running locally or in Docker.
-   [Exercise](https://github.com/Soypete/WebServices-in-3-weeks/tree/main/database/ex-1-connection)
+In your server project, add your preferred database driver and connect to the database in the main function (if you missed day one's exercises or have them in a different location using the [ex-1-connection/main.go](ex-1-connection/main.go)). After you have connected and verified your connection, explore the database. Make sure to query the database's users table and handle the error. Try running `SELECT`, `INSERT`, and `UPDATE` statements
 
-2. **Wrap your database logic**  
-   Create a `DBClient` struct with methods like `CreateUser` or `FindUserByID`.
-   [Example](https://github.com/Soypete/WebServices-in-3-weeks/blob/main/database/demo/database/db.go)
+### Follow-up questions:
 
-3. **Write SQL with `sqlc` and auto-generate Go code**  
-   Write a `.sql` file with your query and use sqlc to generate Go code.
-   [Example user.sql](https://github.com/Soypete/WebServices-in-3-weeks/blob/main/database/demo/queries/user.sql)
+* What kind of package organization would make sense for organizing your database logic?
+* What database driver did you pick?
+* Did the data persist?
 
-4. **Write tests using mocks**  
-   Use interfaces to test your handler logic without spinning up a real database.
-   [Example](https://github.com/Soypete/golang-cli-game/blob/main/server/api_test.go)
+_NOTE_: If you are not using postgres or are completing this independently. You can run many databases locally using docker. Below is an example of running postgres locally in a docker container.
 
----
+```
+docker pull postgres
+docker run -e POSTGRES_PASSWORD=postgres -e POSTGRES_USERNAME=postgres -p 5431:5432 postgres
+```
 
-Would you like this turned into a markdown file for your repo, or published to your blog as Article 2?
+After you get docker running in your local environment set up your database. You will need to `CREATE` your tables and `INSERT` data into the table. You can do this in your Go app or via a sql script editor. [psql](https://www.postgresql.org/docs/current/app-psql.html) is postgres's command line tool.
+
+An example of a go app that connect to a local postgres instance is in [database/ex-1-connection/solution](/database/ex-1-connection/solution/postgres.go).
+
+
+### Exercise 2
+
+Build a client and interface around your database connection. You can use your existing main.go file and build new database package for your abstraction, or you can use the template files found in [database/ex-2-abstraction](/database/ex-2-abstraction/main.go). Make sure to create an interface, a User struct, a database client, and the methods to create, update, and query the User data. If you have any questions please put them in the chat.
+
+Follow-up Questions:
+
+* what are the differences between manually creating a database object vs generating one with sqlc?
+
+### Exercise 3 mock database
+
+Using your new database interface mock the database functions into your [tests from last week](../restful-go/ex-4-tests/solution/framework_test.go). The goal is to imitate db interactions without connecting to the db. You will need to add the DB package to the same repo that your server lives in.
+
+[Here](https://github.com/Soypete/golang-cli-game/blob/24dc57852dee27bb17120555d3d390bd17a78d13/server/api_test.go#L14) are some working tests that use `passBD{}` and `failDB{}` to mock database functionality in an API test.
