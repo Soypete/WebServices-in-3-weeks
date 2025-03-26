@@ -195,24 +195,134 @@ Popular tools:
 
 ## Exercises
 
-Try these exercises to solidify your understanding:
+### [Exercise 1](/reliable-webservice-go/ex-1-auth/auth.go) Add auth to your server endpoints
 
-1. **Add Logging Middleware**  
-   Wrap your existing routes with a logger that prints HTTP method and path.
+Auth tooling is sometimes the first or last measure of security for your endpoints. There are various methods for adding auth to your server endpoint. When building production services the methods you choose for authentication and authorization will be determined by security professionals, but how you implement them is up to you as a developer.
 
-2. **Use `pprof` to inspect CPU usage**  
-   Add `net/http/pprof`, hammer your server with requests, and view flame graphs.
+Add an auth method to your server. You can use any method you like such as a middle-ware, a helper functions or, by manually adding the logic to a single function.
 
-3. **Add Prometheus HTTP request counters**  
-   Count requests per endpoint using a `CounterVec`.
+Here are some examples of how to add different kinds of auth in your apps. You can pick one to use as a reference for you code.
 
-4. **Secure an endpoint**  
-   Add basic auth to a `/secure` route and verify that only authenticated users can access it.
+* [chi middleware](https://github.com/go-chi/chi/blob/master/middleware/basic_auth.go)
+* [manual basic token](https://github.com/Soypete/golang-cli-game/blob/main/server/helpers.go#L36)
+* [JWT](https://pkg.go.dev/github.com/golang-jwt/jwt/v5#example-Parse-Hmac)
+* [go-JWT example package](https://pkg.go.dev/github.com/golang-jwt/jwt/v5)
+* [Go-guardian](https://github.com/shaj13/go-guardian/tree/master/_examples)
+* [Oauth twitter](https://github.com/forgeutah/tweet_automated_bot/blob/main/client/setup.go)
+* [Oauth2 golang.com/x](https://github.com/Soypete/Meetup-chat-server/blob/main/twitch/auth.go)
 
-5. **Set up a `/metrics` endpoint**  
-   Use Prometheus to collect and view metrics.
+### [Exercise 2](/reliable-webservice-go/ex-2-middleware/middleware.go) Add middleware to your go server
 
-> [Exercise repo](https://github.com/Soypete/WebServices-in-3-weeks/tree/main/reliable-webservice-go)
+_Middleware_: _Middleware also refers to the software that separates two or more APIs and provides services such as rate-limiting, authentication, and logging._[wikipedia](https://en.wikipedia.org/wiki/Middleware) The implementation is typically “built-in” functions. In Go, this tends to be platform style tooling shared across the organization. It allows you to add complex functionality to your endpoints.
+
+Using the same web frameworks you used for your web server or the go standard library, add a middleware function to your server. You can use middleware to add metrics, auth, profiling or custom logic to your programs. In this exercise add logging, retry, rate limiting or replace the auth from exercise 1 with a middleware.
+
+Below are framework docs, they will contain examples of build in middleware that you can add with single line functions. They also show you ways of adding custom middleware to your services.
+
+Web frameworks:
+
+* [Chi](https://github.com/go-chi/chi)
+* [Gin](https://github.com/gin-gonic/gin) <!-- uses it own context that predates context.Context-->
+* [Fiber](https://github.com/gofiber/fiber) <!-- uses fasthhtp -->
+
+Here is an [example](https://github.com/Soypete/golang-cli-game/blob/main/server/setup.go) of setting it up using the [chi](https://pkg.go.dev/github.com/go-chi/chi) framework
+
+```go
+	r := chi.NewRouter()
+
+	// add prebuilt middleware for all requests
+	r.Use(middleware.Logger)
+	r.Use(middleware.RequestID)
+	r.Use(middleware.RealIP)
+	r.Use(middleware.Recoverer)
+```
+
+### Pprof live Demo
+
+Pprof is an incredible profiling tool. It is the only tool currently provided to in the standard library what will let you follow memory hot path.
+If you plan on using pprof as part of your monitoring suit you will need to install [graphviz](https://graphviz.org/download/) first.
+
+[Pprof YouTube video](https://youtu.be/KzivSSjnBls)
+
+For more information check out this talk, [Pprof for beginners](https://www.youtube.com/watch?v=HjzJ5r2D8ZM)
+
+### [Exercise 3](/reliable-webservice-go/ex-3-monitoring/monitoring.go) Add some monitoring endpoints to your server
+
+Monitoring is often setup as part of the middleware for commonly used metrics like db calls and http status codes. Often there are other metrics that should be added to track specific business logic and functionality. [Expvars](https://pkg.go.dev/expvar) are provided by the go standard library as a method for exposing metrics to an endpoint where they can be read via a web browser or consumed by a tracking service.
+
+[Prometheus](https://prometheus.io/docs/guides/go-application/) is a very common opensource solution for adding metrics to your web services. It adds metrics to end points that can be scraped into a prometheus instance.
+
+_NOTE:_ In this exercise it is not intended to have a prometheus instance up and running, just to set up the endpoint where you can manually view the metrics.
+
+Using Expvars and/or Prometheus SDK add some custom metrics.
+
+[Example](https://github.com/Soypete/golang-cli-game/blob/main/server/setup.go#L53)
+
+```go
+    reg := prometheus.NewRegistry()
+	reg.MustRegister(collectors.NewBuildInfoCollector())
+	reg.MustRegister(collectors.NewDBStatsCollector(db.GetSqlDB(), "postgres"))
+	reg.MustRegister(collectors.NewExpvarCollector(
+		map[string]*prometheus.Desc{
+			"counter200Code": prometheus.NewDesc("expvar_200Status", "number of status 200 api calls", nil, nil),
+			"counter400Code": prometheus.NewDesc("expvar_400status", "number of status 400 api calls", nil, nil),
+			"counter500Code": prometheus.NewDesc("expvar_500status", "number of status 500 api calls", nil, nil),
+		},
+	))
+
+	// add prometheus endpoint at /metrics. The above collectors will be shown
+	// in the reverse order they are registered.
+	r.Mount("/metrics", promhttp.HandlerFor(
+		reg,
+		promhttp.HandlerOpts{
+			// Opt into OpenMetrics to support exemplars.
+			EnableOpenMetrics: true,
+		},
+	))
+```
+
+#### Bonus exercise: Add Pprof
+
+Add pprof to your service to see how it uses memory when handling API calls. Run pprof and see what insights are available to you.
+
+First add the pprof driver to your app.
+
+```go
+import _ "net/http/pprof"
+```
+
+_*NOTE*: the "\_" means that the import is added globally as a backend system. This is common for servers, db drivers, etc_
+
+Add a pprof server as its own goroutine in your main function.
+
+```go
+// run pprof
+go func() {
+	http.ListenAndServe("localhost:6060", nil)
+}()
+```
+
+Install [graphviz](https://graphviz.org/download/) on your machine to get the visual insights.
+
+_Mac:_
+
+```bash
+brew install graphviz
+```
+
+run pprof while your worker-pool is executing
+
+```bash
+go tool pprof -http=:18080 http://localhost:6060/debug/pprof/profile?seconds=30
+```
+
+In the default graph each node is a function that your program is running. Size and color indicate how much CPU and time each function is taking.
+
+to access the command-line tool run
+
+```bash
+go tool pprof http://localhost:6060/debug/pprof/allocs
+```
 
 ---
 
