@@ -23,9 +23,39 @@ func main() {
 		RawQuery: params.Encode(),
 	}
 
+	//"postgresql://postgres:postgres@localhost:5431/postgres?sslmode=disable"
+
 	db, err := sqlx.Connect("postgres", connectionString.String())
 	if err != nil {
 		panic(err)
 	}
 	fmt.Println(db.Ping())
+
+	// create a new user
+	_, err = db.Exec(`INSERT INTO users (email, password) VALUES ($1, $2)`, "soypete@email.com", "password")
+	if err != nil {
+		panic(err)
+	}
+
+	// get the newly created user
+	rows, err := db.Queryx("SELECT * FROM users")
+	if err != nil {
+		panic(err)
+	}
+
+	type User struct {
+		ID       int    `db:"id"`
+		Email    string `db:"email"`
+		Password string `db:"password"`
+	}
+
+	for rows.Next() {
+		var user User
+		err = rows.StructScan(&user)
+		if err != nil {
+			panic(err)
+		}
+		fmt.Printf("%#v\n", user)
+	}
+
 }
